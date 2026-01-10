@@ -1,0 +1,17 @@
+NOTICE
+
+Geometric Resonance is created by Kyler Simzer.
+
+MIT License allows free use (including commercial use) as long as the LICENSE
+and copyright notice are included with copies/substantial portions.
+
+Attribution request (not a license requirement):
+If you use this in a commercial product, project, or paid offering, please
+include a visible credit such as:
+"Geometric Resonance by Kyler Simzer"
+
+Contact: weworkfortheo@gmail.com
+
+Audio Notice
+`demo.mp3` is original music © Kyler Simzer and is NOT covered by the MIT License.
+Provided for demonstration/listening purposes only.
