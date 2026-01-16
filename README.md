@@ -30,15 +30,6 @@ To make this fully offline / no external requests:
 This app can record a WebM video (VP9) with audio.  
 Browser support varies; Chrome/Edge tend to work best.
 
-## Demo audio
-This repo includes `demo.mp3` for quick testing.
-
-`demo.mp3` © 2025 Kyler Simzer. **All rights reserved.**  
-`demo.mp3` is **not** licensed under the MIT License. Included for demonstration/listening only.  
-No reuse, redistribution, sampling, or sync without permission.
-
-Contact: weworkfortheo@gmail.com
-
 ## License
 The software/code in this repo is licensed under the MIT License (see `LICENSE`).
 
