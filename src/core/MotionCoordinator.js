@@ -126,4 +126,37 @@ export class MotionCoordinator {
         return value * (1.0 - extraSmooth * 0.5);
     }
 }
-    const motion = new MotionCoordinator();
+const motion = new MotionCoordinator();
+
+// Floating particles - smoother motion
+if (floatingParticles) {
+    const fp = floatingParticles.geometry.attributes.position.array;
+    const fc = floatingParticles.geometry.attributes.color.array;
+    floatingData.forEach((fd, i) => {
+        fd.theta += fd.speed * dt * 0.25;
+        fd.phi += fd.speed * dt * 0.12;
+        const bv = audio.getBand(fd.band);
+        // Smoother radius modulation
+        const rr = fd.r * (1 + bv * 0.2 + motion.swell * 0.1);
+        fp[i * 3] = rr * Math.sin(fd.phi) * Math.cos(fd.theta);
+        fp[i * 3 + 1] = rr * Math.sin(fd.phi) * Math.sin(fd.theta);
+        fp[i * 3 + 2] = rr * Math.cos(fd.phi);
+        const c = getHarmonizedColor(bv * 0.7, fd.band / 64);
+        fc[i * 3] = c.r; fc[i * 3 + 1] = c.g; fc[i * 3 + 2] = c.b;
+    });
+    floatingParticles.geometry.attributes.position.needsUpdate = true;
+    floatingParticles.geometry.attributes.color.needsUpdate = true;
+}
+// Environment
+envObjects.forEach(obj => {
+    if (obj.userData && obj.userData.rotSpeed) { obj.rotation.y += obj.userData.rotSpeed; obj.rotation.x += obj.userData.rotSpeed * 0.5; }
+});
+// Camera - DECOUPLED from rapid audio changes for smoothness
+// Uses motion coordinator's smooth values, not raw audio
+const mode = config.autoPilot ? camState.autoMode : config.cameraMode;
+const cSpeed = config.cameraSpeed;
+const cShake = config.cameraShake;
+
+camState.autoAngleOffset = lerp(camState.autoAngleOffset, camState.autoAngleOffsetTarget, dt * 0.5);
+camState.autoHeightBias = lerp(camState.autoHeightBias, camState.autoHeightBiasTarget, dt * 0.5);
+camState.autoRoll = lerp(camState.autoRoll, camState.autoRollTarget, dt * 0.3);
